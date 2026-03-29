@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GitHub Stats | Vedika Kapoor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #0d1117; color: #e6edf3; font-family: 'Inter', sans-serif; padding: 40px 20px; }
+    .container { max-width: 860px; margin: 0 auto; }
+    h1 {
+      font-family: 'Fira Code', monospace;
+      font-size: 22px; color: #58a6ff;
+      margin-bottom: 32px; text-align: center;
+    }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 32px; }
+    .stat-card {
+      background: #161b22; border: 1px solid #30363d;
+      border-radius: 10px; padding: 20px; text-align: center;
+      transition: border-color 0.2s;
+    }
+    .stat-card:hover { border-color: #58a6ff; }
+    .stat-icon { font-size: 24px; margin-bottom: 10px; }
+    .stat-value {
+      font-family: 'Fira Code', monospace;
+      font-size: 28px; font-weight: 500; color: #58a6ff;
+      display: block; margin-bottom: 4px;
+    }
+    .stat-label { font-size: 12px; color: #8b949e; }
+    .repos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 32px; }
+    .repo-card {
+      background: #161b22; border: 1px solid #30363d;
+      border-radius: 8px; padding: 18px;
+      transition: border-color 0.2s; cursor: pointer;
+    }
+    .repo-card:hover { border-color: #58a6ff; }
+    .repo-name { font-family: 'Fira Code', monospace; font-size: 14px; color: #58a6ff; margin-bottom: 8px; }
+    .repo-desc { font-size: 12px; color: #8b949e; line-height: 1.5; margin-bottom: 12px; }
+    .repo-meta { display: flex; gap: 14px; align-items: center; }
+    .repo-lang { font-size: 11px; color: #3fb950; display: flex; align-items: center; gap: 5px; }
+    .lang-dot { width: 8px; height: 8px; border-radius: 50%; background: #3fb950; }
+    .repo-stars { font-size: 11px; color: #8b949e; }
+    .contrib-section { background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 24px; margin-bottom: 24px; }
+    .contrib-title { font-family: 'Fira Code', monospace; font-size: 14px; color: #8b949e; margin-bottom: 16px; }
+    .contrib-grid { display: flex; gap: 3px; flex-wrap: wrap; }
+    .contrib-cell {
+      width: 12px; height: 12px;
+      border-radius: 2px; background: #21262d;
+      transition: background 0.2s;
+    }
+    .contrib-cell.l1 { background: #0e4429; }
+    .contrib-cell.l2 { background: #006d32; }
+    .contrib-cell.l3 { background: #26a641; }
+    .contrib-cell.l4 { background: #39d353; }
+    .loading { text-align: center; color: #8b949e; font-family: 'Fira Code', monospace; font-size: 13px; padding: 20px; }
+    .error { text-align: center; color: #f78166; font-family: 'Fira Code', monospace; font-size: 12px; padding: 10px; }
+    .badge-row { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+    .badge { background: #21262d; border: 1px solid #30363d; border-radius: 20px; padding: 6px 16px; font-family: 'Fira Code', monospace; font-size: 11px; color: #8b949e; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>// github_stats</h1>
+
+    <div class="stats-grid" id="stats-grid">
+      <div class="loading">fetching stats...</div>
+    </div>
+
+    <div class="contrib-section">
+      <div class="contrib-title">contribution activity (simulated)</div>
+      <div class="contrib-grid" id="contrib-grid"></div>
+    </div>
+
+    <div class="repos-grid" id="repos-grid">
+      <div class="loading">loading repositories...</div>
+    </div>
+
+    <div class="badge-row">
+      <span class="badge">Python</span>
+      <span class="badge">JavaScript</span>
+      <span class="badge">React</span>
+      <span class="badge">Blockchain</span>
+      <span class="badge">ML</span>
+    </div>
+  </div>
+
+  <script>
+    const USERNAME = 'vedikakapoor';
+    const GITHUB = `https://api.github.com/users/${USERNAME}`;
+    const REPOS = `https://api.github.com/users/${USERNAME}/repos?sort=updated&per_page=6`;
+
+    // Fetch user stats
+    fetch(GITHUB)
+      .then(r => r.json())
+      .then(data => {
+        document.getElementById('stats-grid').innerHTML = `
+          <div class="stat-card">
+            <div class="stat-icon">📦</div>
+            <span class="stat-value">${data.public_repos || 0}</span>
+            <div class="stat-label">public repos</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">👥</div>
+            <span class="stat-value">${data.followers || 0}</span>
+            <div class="stat-label">followers</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🌟</div>
+            <span class="stat-value">${data.following || 0}</span>
+            <div class="stat-label">following</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">📍</div>
+            <span class="stat-value" style="font-size:16px">${data.location || 'Chennai'}</span>
+            <div class="stat-label">location</div>
+          </div>
+        `;
+      })
+      .catch(() => {
+        document.getElementById('stats-grid').innerHTML = `
+          <div class="stat-card"><div class="stat-icon">📦</div><span class="stat-value">4</span><div class="stat-label">projects</div></div>
+          <div class="stat-card"><div class="stat-icon">⭐</div><span class="stat-value">8.67</span><div class="stat-label">GPA</div></div>
+          <div class="stat-card"><div class="stat-icon">🏆</div><span class="stat-value">2</span><div class="stat-label">awards</div></div>
+          <div class="stat-card"><div class="stat-icon">🌱</div><span class="stat-value">5</span><div class="stat-label">states reached</div></div>
+        `;
+      });
+
+    // Fetch repos
+    fetch(REPOS)
+      .then(r => r.json())
+      .then(repos => {
+        if (!repos.length) throw new Error('no repos');
+        document.getElementById('repos-grid').innerHTML = repos.slice(0, 4).map(r => `
+          <div class="repo-card" onclick="window.open('${r.html_url}','_blank')">
+            <div class="repo-name">📁 ${r.name}</div>
+            <div class="repo-desc">${r.description || 'No description yet'}</div>
+            <div class="repo-meta">
+              <span class="repo-lang"><span class="lang-dot"></span>${r.language || 'Code'}</span>
+              <span class="repo-stars">⭐ ${r.stargazers_count}</span>
+            </div>
+          </div>
+        `).join('');
+      })
+      .catch(() => {
+        document.getElementById('repos-grid').innerHTML = `
+          <div class="repo-card"><div class="repo-name">📁 SolarSavvy</div><div class="repo-desc">Clean energy accessibility platform using ML regression</div><div class="repo-meta"><span class="repo-lang"><span class="lang-dot"></span>Python</span></div></div>
+          <div class="repo-card"><div class="repo-name">📁 AI-API-Monitor</div><div class="repo-desc">Real-time anomaly detection platform — Top 6 / 5000+</div><div class="repo-meta"><span class="repo-lang"><span class="lang-dot" style="background:#f7df1e"></span>JavaScript</span></div></div>
+          <div class="repo-card"><div class="repo-name">📁 PathProof</div><div class="repo-desc">Blockchain supply chain traceability with zk-SNARKs</div><div class="repo-meta"><span class="repo-lang"><span class="lang-dot" style="background:#bc8cff"></span>Solidity</span></div></div>
+          <div class="repo-card"><div class="repo-name">📁 Uni-Dashboard</div><div class="repo-desc">Full-stack PERN classroom management platform</div><div class="repo-meta"><span class="repo-lang"><span class="lang-dot" style="background:#58a6ff"></span>React</span></div></div>
+        `;
+      });
+
+    // Generate contribution grid
+    const grid = document.getElementById('contrib-grid');
+    const levels = ['', 'l1', 'l2', 'l3', 'l4'];
+    for (let i = 0; i < 364; i++) {
+      const cell = document.createElement('div');
+      const rand = Math.random();
+      cell.className = 'contrib-cell ' + (rand > 0.7 ? levels[Math.floor(rand * 4) + 1] : '');
+      cell.title = `${Math.floor(rand * 5)} contributions`;
+      grid.appendChild(cell);
+    }
+  </script>
+</body>
+</html> 
