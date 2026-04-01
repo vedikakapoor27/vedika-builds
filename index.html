@@ -11,11 +11,16 @@
 <body>
 
   <!-- LOADER -->
-  <div id="loader">
-    <div class="loader-text">
-      <span>initializing</span><span class="dots">...</span>
-    </div>
+ <link rel="stylesheet" href="loader.css"/>
+
+<div id="preloader">
+  <div class="pre-logo">&lt;<span>VK</span> /&gt;</div>
+  <div class="pre-bar-wrapper">
+    <div class="pre-bar" id="pre-bar"></div>
   </div>
+  <div class="pre-percent" id="pre-percent">0%</div>
+  <div class="pre-status" id="pre-status">initializing...</div>
+</div>
 
   <!-- CURSOR -->
   <div class="cursor" id="cursor"></div>

@@ -1,11 +1,32 @@
 // LOADER
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    const loader = document.getElementById('loader');
-    loader.style.opacity = '0';
-    setTimeout(() => loader.style.display = 'none', 500);
-  }, 1500);
-});
+// LOADING SCREEN
+const steps = [
+  [15, 'loading assets...'],
+  [35, 'compiling projects...'],
+  [55, 'rendering skills...'],
+  [75, 'calibrating matrix...'],
+  [90, 'almost ready...'],
+  [100, 'welcome, explorer.']
+];
+let stepIdx = 0;
+const bar = document.getElementById('pre-bar');
+const pct = document.getElementById('pre-percent');
+const status = document.getElementById('pre-status');
+
+function runLoader() {
+  if (stepIdx >= steps.length) {
+    setTimeout(() => {
+      document.getElementById('preloader').classList.add('hidden');
+    }, 400);
+    return;
+  }
+  const [width, text] = steps[stepIdx++];
+  bar.style.width = width + '%';
+  pct.textContent = width + '%';
+  status.textContent = text;
+  setTimeout(runLoader, 320);
+}
+runLoader();
 
 // CUSTOM CURSOR
 const cursor = document.getElementById('cursor');
