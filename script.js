@@ -140,6 +140,20 @@ window.addEventListener('scroll', () => {
   nav.style.boxShadow = window.scrollY > 50 ? '0 4px 20px rgba(0,0,0,0.4)' : 'none';
 });
 
+// DARK / LIGHT MODE
+const toggle = document.getElementById('theme-toggle');
+const saved = localStorage.getItem('theme');
+if (saved === 'light') {
+  document.body.classList.add('light-mode');
+  toggle.textContent = '☀️';
+}
+toggle.addEventListener('click', () => {
+  document.body.classList.toggle('light-mode');
+  const isLight = document.body.classList.contains('light-mode');
+  toggle.textContent = isLight ? '☀️' : '🌙';
+  localStorage.setItem('theme', isLight ? 'light' : 'dark');
+});
+
 // SMOOTH SCROLL
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
@@ -160,3 +174,69 @@ document.getElementById('hamburger').addEventListener('click', () => {
   links.style.padding = '16px'; links.style.borderRadius = '8px';
   links.style.border = '1px solid #30363d';
 });
+// EASTER EGG — KONAMI CODE ↑↑↓↓←→←→BA
+(function () {
+  const code = [
+    'ArrowUp','ArrowUp','ArrowDown','ArrowDown',
+    'ArrowLeft','ArrowRight','ArrowLeft','ArrowRight',
+    'b','a'
+  ];
+  let idx = 0;
+
+  // Create overlay
+  const overlay = document.createElement('div');
+  overlay.style.cssText = `
+    position: fixed; inset: 0;
+    background: rgba(13,17,23,0.96);
+    z-index: 99999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+    font-family: Fira Code, monospace;
+    text-align: center;
+  `;
+  overlay.innerHTML = `
+    <div style="font-size:clamp(40px,8vw,72px)">🎮</div>
+    <div style="font-size:clamp(18px,4vw,28px);color:#58a6ff;font-weight:600;">
+      cheat code activated
+    </div>
+    <div style="font-size:13px;color:#8b949e;max-width:360px;line-height:1.8;">
+      you found the easter egg.<br/>
+      clearly you pay attention to detail —<br/>
+      <span style="color:#3fb950">exactly the kind of person i want to work with.</span>
+    </div>
+    <div style="font-size:12px;color:#6e7681;margin-top:8px;">
+      → vedikakapoor.work@gmail.com
+    </div>
+    <button id="close-egg" style="
+      margin-top:16px;
+      background:transparent;
+      border:1px solid #30363d;
+      color:#8b949e;
+      padding:10px 24px;
+      border-radius:6px;
+      font-family:Fira Code,monospace;
+      font-size:12px;
+      cursor:pointer;
+    ">esc to close</button>
+  `;
+  document.body.appendChild(overlay);
+
+  document.getElementById('close-egg')
+    .addEventListener('click', () => overlay.style.display = 'none');
+
+  document.addEventListener('keydown', e => {
+    if (e.key === code[idx]) {
+      idx++;
+      if (idx === code.length) {
+        overlay.style.display = 'flex';
+        idx = 0;
+      }
+    } else {
+      idx = 0;
+    }
+    if (e.key === 'Escape') overlay.style.display = 'none';
+  });
+})();

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SolarSavvy | Case Study</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #0d1117; color: #e6edf3; font-family: 'Inter', sans-serif; }
+    .back-btn {
+      position: fixed; top: 20px; left: 24px;
+      font-family: 'Fira Code', monospace;
+      font-size: 12px; color: #8b949e;
+      text-decoration: none;
+      background: #161b22; border: 1px solid #30363d;
+      padding: 8px 14px; border-radius: 6px;
+      transition: all 0.2s; z-index: 10;
+    }
+    .back-btn:hover { color: #58a6ff; border-color: #58a6ff; }
+    .hero {
+      padding: 80px 40px 60px;
+      max-width: 820px; margin: 0 auto;
+      border-bottom: 1px solid #21262d;
+    }
+    .tag {
+      font-family: 'Fira Code', monospace;
+      font-size: 11px; color: #3fb950;
+      background: rgba(63,185,80,0.1);
+      border: 1px solid rgba(63,185,80,0.3);
+      padding: 4px 12px; border-radius: 20px;
+      display: inline-block; margin-bottom: 16px;
+    }
+    .hero h1 { font-size: 42px; font-weight: 600; margin-bottom: 16px; }
+    .hero h1 span { color: #58a6ff; }
+    .hero p { font-size: 16px; color: #8b949e; line-height: 1.8; max-width: 600px; }
+    .meta {
+      display: flex; gap: 32px; margin-top: 28px; flex-wrap: wrap;
+    }
+    .meta-item label {
+      font-family: 'Fira Code', monospace;
+      font-size: 10px; color: #6e7681;
+      display: block; margin-bottom: 4px; text-transform: uppercase;
+    }
+    .meta-item span { font-size: 13px; color: #e6edf3; }
+    .content { max-width: 820px; margin: 0 auto; padding: 40px; }
+    .section { margin-bottom: 48px; }
+    .section h2 {
+      font-family: 'Fira Code', monospace;
+      font-size: 16px; color: #58a6ff;
+      margin-bottom: 16px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .section h2::after {
+      content: ''; flex: 1; height: 1px; background: #21262d;
+    }
+    .section p { font-size: 15px; color: #8b949e; line-height: 1.9; margin-bottom: 12px; }
+    .highlight-box {
+      background: #161b22; border-left: 3px solid #58a6ff;
+      border-radius: 0 8px 8px 0; padding: 16px 20px;
+      margin: 16px 0; font-size: 14px; color: #8b949e; line-height: 1.7;
+    }
+    .highlight-box strong { color: #e6edf3; }
+    .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 24px 0; }
+    .stat-box {
+      background: #161b22; border: 1px solid #21262d;
+      border-radius: 8px; padding: 20px; text-align: center;
+    }
+    .stat-box .num {
+      font-family: 'Fira Code', monospace;
+      font-size: 26px; color: #58a6ff; font-weight: 500;
+      display: block; margin-bottom: 6px;
+    }
+    .stat-box .lbl { font-size: 12px; color: #8b949e; }
+    .stack-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .stack-tag {
+      background: #21262d; border: 1px solid #30363d;
+      color: #8b949e; font-size: 12px;
+      padding: 6px 14px; border-radius: 6px;
+      font-family: 'Fira Code', monospace;
+    }
+    .flow {
+      display: flex; align-items: center;
+      gap: 8px; flex-wrap: wrap; margin: 16px 0;
+    }
+    .flow-step {
+      background: #161b22; border: 1px solid #30363d;
+      border-radius: 6px; padding: 10px 16px;
+      font-size: 12px; color: #e6edf3;
+      font-family: 'Fira Code', monospace;
+    }
+    .flow-arrow { color: #58a6ff; font-size: 16px; }
+    .lessons { list-style: none; }
+    .lessons li {
+      font-size: 14px; color: #8b949e;
+      padding: 10px 0; border-bottom: 1px solid #21262d;
+      display: flex; gap: 12px; align-items: flex-start; line-height: 1.6;
+    }
+    .lessons li::before { content: '→'; color: #58a6ff; flex-shrink: 0; margin-top: 1px; }
+  </style>
+</head>
+<body>
+  <a href="../index.html#projects" class="back-btn">← back</a>
+
+  <div class="hero">
+    <span class="tag">case study</span>
+    <h1>Solar<span>Savvy</span></h1>
+    <p>A data-driven platform to improve solar energy accessibility for low-income Indian homeowners — bridging the gap between awareness and action.</p>
+    <div class="meta">
+      <div class="meta-item"><label>timeline</label><span>Aug 2025 – Present</span></div>
+      <div class="meta-item"><label>role</label><span>Solo Developer</span></div>
+      <div class="meta-item"><label>type</label><span>Social Impact · ML</span></div>
+      <div class="meta-item"><label>status</label><span>🟢 Active</span></div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="section">
+      <h2>01. the problem</h2>
+      <p>India's PM Surya Ghar scheme offers significant subsidies for rooftop solar installation — yet adoption among low-income households remains critically low. The barriers aren't financial alone.</p>
+      <div class="highlight-box">
+        <strong>Key insight:</strong> People who qualified for subsidies were still not acting. The gap wasn't awareness — it was trust, complexity, and lack of personalised information. This is a behavioural problem, not just a technical one.
+      </div>
+      <p>Existing tools were either too generic or required technical expertise to use. No solution addressed the specific needs of low-income homeowners in Tier 2 and Tier 3 Indian cities.</p>
+    </div>
+
+    <div class="section">
+      <h2>02. the solution</h2>
+      <p>SolarSavvy lets users input their address and get an instant, personalised estimate of their rooftop solar potential, installation cost, and 10-year ROI — in plain language.</p>
+      <div class="flow">
+        <div class="flow-step">address input</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">ML area estimation</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">cost calculation</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">ROI projection</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">subsidy info</div>
+      </div>
+      <p>ML regression models estimate usable rooftop area directly from address inputs — no satellite imagery required — making it accessible without expensive APIs.</p>
+    </div>
+
+    <div class="section">
+      <h2>03. impact & results</h2>
+      <div class="stats-row">
+        <div class="stat-box"><span class="num">±12%</span><div class="lbl">ML error margin</div></div>
+        <div class="stat-box"><span class="num">5</span><div class="lbl">Indian states piloted</div></div>
+        <div class="stat-box"><span class="num">10yr</span><div class="lbl">ROI projection window</div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>04. tech stack</h2>
+      <div class="stack-tags">
+        <span class="stack-tag">Python</span>
+        <span class="stack-tag">Scikit-learn</span>
+        <span class="stack-tag">Pandas</span>
+        <span class="stack-tag">Streamlit</span>
+        <span class="stack-tag">ChatGPT API</span>
+        <span class="stack-tag">Matplotlib</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>05. lessons learned</h2>
+      <ul class="lessons">
+        <li>The hardest problems are behavioural, not technical — understanding why people don't act matters more than building features.</li>
+        <li>ML accuracy of ±12% with minimal data is achievable when features are carefully engineered from indirect signals.</li>
+        <li>Simplicity beats sophistication for social impact tools — users need trust, not complexity.</li>
+        <li>Combining engineering with policy knowledge (PM Surya Ghar subsidies) creates real-world relevance.</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

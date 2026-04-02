@@ -5,22 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Vedika Kapoor | Developer</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="loader.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
 <body>
 
-  <!-- LOADER -->
- <link rel="stylesheet" href="loader.css"/>
-
-<div id="preloader">
-  <div class="pre-logo">&lt;<span>VK</span> /&gt;</div>
-  <div class="pre-bar-wrapper">
-    <div class="pre-bar" id="pre-bar"></div>
+  <!-- PRELOADER -->
+  <div id="preloader">
+    <div class="pre-logo">&lt;<span>VK</span> /&gt;</div>
+    <div class="pre-bar-wrapper">
+      <div class="pre-bar" id="pre-bar"></div>
+    </div>
+    <div class="pre-percent" id="pre-percent">0%</div>
+    <div class="pre-status" id="pre-status">initializing...</div>
   </div>
-  <div class="pre-percent" id="pre-percent">0%</div>
-  <div class="pre-status" id="pre-status">initializing...</div>
-</div>
 
   <!-- CURSOR -->
   <div class="cursor" id="cursor"></div>
@@ -37,8 +36,11 @@
       <li><a href="#achievements">achievements</a></li>
       <li><a href="#contact">contact</a></li>
     </ul>
-    <div class="hamburger" id="hamburger">
-      <span></span><span></span><span></span>
+    <div style="display:flex; align-items:center; gap:12px;">
+      <button id="theme-toggle" title="Toggle theme">🌙</button>
+      <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
     </div>
   </nav>
 
@@ -62,6 +64,8 @@
       <div class="hero-btns">
         <a href="#projects" class="btn btn-primary">view my work</a>
         <a href="assets/resume.pdf" download class="btn btn-outline">download resume</a>
+        <a href="terminal.html" class="btn btn-outline">open terminal</a>
+        <a href="github-stats.html" class="btn btn-outline">github stats</a>
       </div>
       <div class="hero-stats">
         <div class="stat"><span class="stat-num">8.67</span><span class="stat-label">GPA</span></div>
@@ -101,6 +105,9 @@
           </div>
         </div>
         <div class="about-card-stack">
+          <div class="profile-img-wrapper">
+            <img src="assets/images/profile.jpg" alt="Vedika Kapoor" class="profile-img"/>
+          </div>
           <div class="info-card">
             <i class="fas fa-graduation-cap"></i>
             <div>
@@ -152,6 +159,7 @@
             <span>Python</span><span>ML</span><span>Streamlit</span><span>Sustainability</span>
           </div>
           <div class="project-badge">social impact</div>
+          <a href="projects/solarsavvy.html" class="case-study-link">read case study →</a>
         </div>
 
         <div class="project-card">
@@ -361,6 +369,10 @@
     <p>designed & built by <span>Vedika Kapoor</span> · 2026</p>
   </footer>
 
+  <!-- SCRIPTS — always last before </body> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="script.js"></script>
+  <script src="three-bg.js"></script>
+  <script src="cursor-trail.js"></script>
 </body>
 </html>

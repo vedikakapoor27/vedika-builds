@@ -97,6 +97,25 @@ body {
 .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
 .hamburger span { width: 22px; height: 1px; background: var(--text2); transition: all 0.3s; }
 
+body.light-mode {
+  --bg: #ffffff;
+  --bg2: #f6f8fa;
+  --bg3: #eaeef2;
+  --text: #1f2328;
+  --text2: #656d76;
+  --text3: #9198a1;
+  --border: #d0d7de;
+  --blue: #0969da;
+  --blue-dark: #0550ae;
+  --green: #1a7f37;
+  --purple: #8250df;
+  --orange: #cf222e;
+}
+body.light-mode #matrix-canvas { filter: invert(1); }
+#theme-toggle:hover {
+  border-color: #58a6ff;
+  color: #58a6ff;
+}
 /* HERO */
 #hero {
   min-height: 100vh;
