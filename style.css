@@ -46,22 +46,43 @@ body {
   z-index: 9998; transition: all 0.15s ease;
 }
 
-/* LOADER */
-#loader {
+/* LOADER — id matches JS: #preloader */
+#preloader {
   position: fixed; inset: 0;
   background: var(--bg);
   display: flex; align-items: center; justify-content: center;
   z-index: 99999;
   transition: opacity 0.5s ease;
 }
-.loader-text {
-  font-family: 'Fira Code', monospace;
-  font-size: 18px; color: var(--blue);
-  letter-spacing: 2px;
+#preloader.hidden {
+  opacity: 0;
+  pointer-events: none;
 }
-.dots { animation: dotdot 1.2s infinite; }
-@keyframes dotdot {
-  0%,100% { opacity: 1; } 50% { opacity: 0.2; }
+.loader-inner {
+  font-family: 'Fira Code', monospace;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 16px;
+  width: 260px;
+}
+.loader-bar-track {
+  width: 100%; height: 2px;
+  background: var(--border); border-radius: 2px; overflow: hidden;
+}
+#pre-bar {
+  height: 100%; width: 0%;
+  background: var(--blue);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+.loader-meta {
+  display: flex; justify-content: space-between;
+  width: 100%;
+}
+#pre-percent {
+  font-size: 12px; color: var(--blue);
+}
+#pre-status {
+  font-size: 12px; color: var(--text3);
 }
 
 /* NAV */
@@ -97,6 +118,23 @@ body {
 .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
 .hamburger span { width: 22px; height: 1px; background: var(--text2); transition: all 0.3s; }
 
+/* THEME TOGGLE — base styles so hover works */
+#theme-toggle {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text2);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+#theme-toggle:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+/* LIGHT MODE */
 body.light-mode {
   --bg: #ffffff;
   --bg2: #f6f8fa;
@@ -112,10 +150,7 @@ body.light-mode {
   --orange: #cf222e;
 }
 body.light-mode #matrix-canvas { filter: invert(1); }
-#theme-toggle:hover {
-  border-color: #58a6ff;
-  color: #58a6ff;
-}
+
 /* HERO */
 #hero {
   min-height: 100vh;
@@ -154,7 +189,7 @@ body.light-mode #matrix-canvas { filter: invert(1); }
   padding: 12px 28px; border-radius: 6px;
   font-family: 'Fira Code', monospace;
   font-size: 13px; text-decoration: none;
-  transition: all 0.2s; cursor: none;
+  transition: all 0.2s;
 }
 .btn-primary {
   background: var(--blue); color: #0d1117;
@@ -193,7 +228,8 @@ body.light-mode #matrix-canvas { filter: invert(1); }
 
 /* SECTIONS */
 section { padding: 80px 0; }
-section:nth-child(even) { background: var(--bg2); }
+/* Use a class instead of nth-child to avoid counting non-section siblings */
+section.alt-bg { background: var(--bg2); }
 .container { max-width: 1000px; margin: 0 auto; padding: 0 48px; }
 .section-header {
   display: flex; align-items: center; gap: 12px;
@@ -410,4 +446,7 @@ footer span { color: var(--blue); }
   .achievements-grid { grid-template-columns: 1fr; }
   .contact-wrapper { padding: 28px; flex-direction: column; }
   .hero-stats { gap: 16px; }
+  /* Restore default cursor on touch devices */
+  body { cursor: auto; }
+  .cursor, .cursor-follower { display: none; }
 }
