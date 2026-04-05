@@ -1,4 +1,3 @@
-// Wait for DOM before doing anything
 document.addEventListener('DOMContentLoaded', () => {
 
   // LOADING SCREEN
@@ -143,18 +142,18 @@ document.addEventListener('DOMContentLoaded', () => {
     nav.style.boxShadow = window.scrollY > 50 ? '0 4px 20px rgba(0,0,0,0.4)' : 'none';
   });
 
-  // DARK / LIGHT MODE
+  // DARK / PINK MODE 🌸
   const toggle = document.getElementById('theme-toggle');
   const saved = localStorage.getItem('theme');
-  if (saved === 'light') {
-    document.body.classList.add('light-mode');
-    toggle.textContent = '☀️';
+  if (saved === 'pink') {
+    document.body.classList.add('pink-mode');
+    toggle.textContent = '🌸';
   }
   toggle.addEventListener('click', () => {
-    document.body.classList.toggle('light-mode');
-    const isLight = document.body.classList.contains('light-mode');
-    toggle.textContent = isLight ? '☀️' : '🌙';
-    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    document.body.classList.toggle('pink-mode');
+    const isPink = document.body.classList.contains('pink-mode');
+    toggle.textContent = isPink ? '🌸' : '🌙';
+    localStorage.setItem('theme', isPink ? 'pink' : 'dark');
   });
 
   // SMOOTH SCROLL
