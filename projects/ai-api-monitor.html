@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI API Monitor | Case Study</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #0d1117; color: #e6edf3; font-family: 'Inter', sans-serif; }
+    .back-btn {
+      position: fixed; top: 20px; left: 24px;
+      font-family: 'Fira Code', monospace;
+      font-size: 12px; color: #8b949e;
+      text-decoration: none;
+      background: #161b22; border: 1px solid #30363d;
+      padding: 8px 14px; border-radius: 6px;
+      transition: all 0.2s; z-index: 10;
+    }
+    .back-btn:hover { color: #58a6ff; border-color: #58a6ff; }
+    .hero {
+      padding: 80px 40px 60px;
+      max-width: 820px; margin: 0 auto;
+      border-bottom: 1px solid #21262d;
+    }
+    .tag {
+      font-family: 'Fira Code', monospace;
+      font-size: 11px; color: #f78166;
+      background: rgba(247,129,102,0.1);
+      border: 1px solid rgba(247,129,102,0.3);
+      padding: 4px 12px; border-radius: 20px;
+      display: inline-block; margin-bottom: 16px;
+    }
+    .hero h1 { font-size: 42px; font-weight: 600; margin-bottom: 16px; }
+    .hero h1 span { color: #58a6ff; }
+    .hero p { font-size: 16px; color: #8b949e; line-height: 1.8; max-width: 600px; }
+    .meta { display: flex; gap: 32px; margin-top: 28px; flex-wrap: wrap; }
+    .meta-item label {
+      font-family: 'Fira Code', monospace;
+      font-size: 10px; color: #6e7681;
+      display: block; margin-bottom: 4px; text-transform: uppercase;
+    }
+    .meta-item span { font-size: 13px; color: #e6edf3; }
+    .content { max-width: 820px; margin: 0 auto; padding: 40px; }
+    .section { margin-bottom: 48px; }
+    .section h2 {
+      font-family: 'Fira Code', monospace;
+      font-size: 16px; color: #58a6ff;
+      margin-bottom: 16px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .section h2::after { content: ''; flex: 1; height: 1px; background: #21262d; }
+    .section p { font-size: 15px; color: #8b949e; line-height: 1.9; margin-bottom: 12px; }
+    .highlight-box {
+      background: #161b22; border-left: 3px solid #f78166;
+      border-radius: 0 8px 8px 0; padding: 16px 20px;
+      margin: 16px 0; font-size: 14px; color: #8b949e; line-height: 1.7;
+    }
+    .highlight-box strong { color: #e6edf3; }
+    .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 24px 0; }
+    .stat-box {
+      background: #161b22; border: 1px solid #21262d;
+      border-radius: 8px; padding: 20px; text-align: center;
+    }
+    .stat-box .num {
+      font-family: 'Fira Code', monospace;
+      font-size: 26px; color: #f78166; font-weight: 500;
+      display: block; margin-bottom: 6px;
+    }
+    .stat-box .lbl { font-size: 12px; color: #8b949e; }
+    .stack-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .stack-tag {
+      background: #21262d; border: 1px solid #30363d;
+      color: #8b949e; font-size: 12px;
+      padding: 6px 14px; border-radius: 6px;
+      font-family: 'Fira Code', monospace;
+    }
+    .flow {
+      display: flex; align-items: center;
+      gap: 8px; flex-wrap: wrap; margin: 16px 0;
+    }
+    .flow-step {
+      background: #161b22; border: 1px solid #30363d;
+      border-radius: 6px; padding: 10px 16px;
+      font-size: 12px; color: #e6edf3;
+      font-family: 'Fira Code', monospace;
+    }
+    .flow-arrow { color: #f78166; font-size: 16px; }
+    .award-banner {
+      background: rgba(247,129,102,0.08);
+      border: 1px solid rgba(247,129,102,0.3);
+      border-radius: 8px; padding: 20px 24px;
+      display: flex; align-items: center; gap: 16px;
+      margin: 24px 0;
+    }
+    .award-banner .trophy { font-size: 32px; }
+    .award-banner h3 { font-size: 16px; color: #e6edf3; margin-bottom: 4px; }
+    .award-banner p { font-size: 13px; color: #8b949e; }
+    .lessons { list-style: none; }
+    .lessons li {
+      font-size: 14px; color: #8b949e;
+      padding: 10px 0; border-bottom: 1px solid #21262d;
+      display: flex; gap: 12px; align-items: flex-start; line-height: 1.6;
+    }
+    .lessons li::before { content: '→'; color: #f78166; flex-shrink: 0; margin-top: 1px; }
+  </style>
+</head>
+<body>
+  <a href="../index.html#projects" class="back-btn">← back</a>
+
+  <div class="hero">
+    <span class="tag">case study</span>
+    <h1>AI <span>API Monitor</span></h1>
+    <p>An intelligent API observability platform that detects anomalies in real time and forecasts performance degradation — built under competition pressure and recognised among the top 6 from 5,000+ national applicants.</p>
+    <div class="meta">
+      <div class="meta-item"><label>timeline</label><span>Apr 2025 – Present</span></div>
+      <div class="meta-item"><label>role</label><span>Solo Developer</span></div>
+      <div class="meta-item"><label>type</label><span>AI · DevOps · Real-time</span></div>
+      <div class="meta-item"><label>status</label><span>🏆 Top 6 / 5000+</span></div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <div class="award-banner">
+      <div class="trophy">🏆</div>
+      <div>
+        <h3>Barclays Hack-O-Hire — Top 6 Finalist</h3>
+        <p>Selected from 5,000+ national applicants. Built and deployed a production-grade system under competition pressure.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>01. the problem</h2>
+      <p>Modern applications depend on dozens of APIs simultaneously. When one degrades or fails, the impact cascades — but by the time engineers notice, significant damage is already done.</p>
+      <div class="highlight-box">
+        <strong>Key insight:</strong> Traditional monitoring tools are reactive — they alert after failure. The real need is a system that detects degradation patterns before they become outages, giving engineers a 15-minute window to act.
+      </div>
+      <p>The challenge was to build a system that not only monitors in real time but also learns patterns, detects anomalies, and forecasts future performance — all in a single integrated platform.</p>
+    </div>
+
+    <div class="section">
+      <h2>02. the solution</h2>
+      <p>AI API Monitor combines real-time anomaly detection with time-series forecasting to give engineering teams proactive visibility into API health.</p>
+      <div class="flow">
+        <div class="flow-step">API metrics ingested</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">Elasticsearch indexed</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">Isolation Forest detects anomalies</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">Prophet forecasts 15min ahead</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">Slack alert fired</div>
+      </div>
+      <p>The Isolation Forest algorithm identifies outliers in API response time and error rate data without needing labelled training data. Facebook's Prophet model then forecasts degradation trajectories, giving teams advance warning.</p>
+    </div>
+
+    <div class="section">
+      <h2>03. impact & results</h2>
+      <div class="stats-row">
+        <div class="stat-box"><span class="num">60%</span><div class="lbl">reduction in simulated MTTD</div></div>
+        <div class="stat-box"><span class="num">15min</span><div class="lbl">advance degradation warning</div></div>
+        <div class="stat-box"><span class="num">Top 6</span><div class="lbl">from 5,000+ applicants</div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>04. tech stack</h2>
+      <div class="stack-tags">
+        <span class="stack-tag">FastAPI</span>
+        <span class="stack-tag">MongoDB</span>
+        <span class="stack-tag">Elasticsearch</span>
+        <span class="stack-tag">Kibana</span>
+        <span class="stack-tag">React</span>
+        <span class="stack-tag">Tailwind CSS</span>
+        <span class="stack-tag">Isolation Forest</span>
+        <span class="stack-tag">Facebook Prophet</span>
+        <span class="stack-tag">Slack API</span>
+        <span class="stack-tag">Twilio</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>05. lessons learned</h2>
+      <ul class="lessons">
+        <li>Building under pressure reveals what matters — focus on core functionality first, polish second.</li>
+        <li>Unsupervised ML (Isolation Forest) is powerful for anomaly detection when labelled data doesn't exist.</li>
+        <li>Time-series forecasting with Prophet is surprisingly effective even with limited historical data.</li>
+        <li>Integrating multiple tools (Elasticsearch + Kibana + Slack) into one seamless pipeline is where real engineering value is created.</li>
+        <li>A 60% reduction in MTTD isn't just a metric — it's the difference between a minor incident and a major outage.</li>
+      </ul>
+    </div>
+
+  </div>
+</body>
+</html>
