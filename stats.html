@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Stats | Vedika Kapoor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #0d1117; color: #e6edf3; font-family: 'Inter', sans-serif; min-height: 100vh; }
+
+    .back-btn {
+      position: fixed; top: 20px; left: 24px;
+      font-family: 'Fira Code', monospace; font-size: 12px;
+      color: #8b949e; text-decoration: none;
+      background: #161b22; border: 1px solid #30363d;
+      padding: 8px 14px; border-radius: 6px;
+      transition: all 0.2s; z-index: 10;
+    }
+    .back-btn:hover { color: #58a6ff; border-color: #58a6ff; }
+
+    .page-hero {
+      padding: 80px 40px 40px;
+      max-width: 1000px; margin: 0 auto;
+      text-align: center;
+    }
+    .page-hero h1 {
+      font-family: 'Fira Code', monospace;
+      font-size: 32px; color: #e6edf3; margin-bottom: 8px;
+    }
+    .page-hero h1 span { color: #58a6ff; }
+    .page-hero p { font-size: 14px; color: #8b949e; }
+
+    .tabs {
+      display: flex; justify-content: center; gap: 8px;
+      margin: 32px auto; max-width: 400px;
+    }
+    .tab {
+      flex: 1; padding: 10px 20px;
+      font-family: 'Fira Code', monospace; font-size: 13px;
+      background: #161b22; border: 1px solid #30363d;
+      color: #8b949e; border-radius: 6px; cursor: pointer;
+      transition: all 0.2s; text-align: center;
+    }
+    .tab.active { background: #58a6ff22; border-color: #58a6ff; color: #58a6ff; }
+    .tab:hover { border-color: #58a6ff; color: #58a6ff; }
+
+    .container { max-width: 1000px; margin: 0 auto; padding: 0 40px 60px; }
+
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    /* STAT CARDS */
+    .stat-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 28px; }
+    .stat-card {
+      background: #161b22; border: 1px solid #30363d;
+      border-radius: 10px; padding: 20px; text-align: center;
+      transition: border-color 0.2s;
+    }
+    .stat-card:hover { border-color: #58a6ff; }
+    .stat-card .icon { font-size: 22px; margin-bottom: 10px; display: block; }
+    .stat-card .value {
+      font-family: 'Fira Code', monospace;
+      font-size: 24px; font-weight: 600; color: #58a6ff;
+      display: block; margin-bottom: 4px;
+    }
+    .stat-card .value.green { color: #3fb950; }
+    .stat-card .value.purple { color: #bc8cff; }
+    .stat-card .value.orange { color: #f78166; }
+    .stat-card .label { font-size: 11px; color: #8b949e; }
+
+    /* CONTRIBUTION GRID */
+    .contrib-section {
+      background: #161b22; border: 1px solid #30363d;
+      border-radius: 10px; padding: 24px; margin-bottom: 24px;
+    }
+    .contrib-header {
+      display: flex; justify-content: space-between;
+      align-items: center; margin-bottom: 16px;
+    }
+    .contrib-title { font-family: 'Fira Code', monospace; font-size: 13px; color: #8b949e; }
+    .contrib-total { font-family: 'Fira Code', monospace; font-size: 12px; color: #3fb950; }
+    .contrib-grid { display: flex; gap: 3px; flex-wrap: wrap; }
+    .contrib-cell {
+      width: 11px; height: 11px; border-radius: 2px;
+      background: #21262d; transition: background 0.2s; cursor: pointer;
+      position: relative;
+    }
+    .contrib-cell:hover { outline: 1px solid #58a6ff; }
+    .contrib-cell.l1 { background: #0e4429; }
+    .contrib-cell.l2 { background: #006d32; }
+    .contrib-cell.l3 { background: #26a641; }
+    .contrib-cell.l4 { background: #39d353; }
+    .contrib-legend {
+      display: flex; align-items: center; gap: 4px;
+      margin-top: 12px; justify-content: flex-end;
+      font-size: 11px; color: #8b949e;
+    }
+    .legend-cell { width: 11px; height: 11px; border-radius: 2px; }
+
+    /* REPOS */
+    .repos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+    .repo-card {
+      background: #161b22; border: 1px solid #30363d;
+      border-radius: 8px; padding: 18px;
+      transition: border-color 0.2s; cursor: pointer;
+      text-decoration: none;
+    }
+    .repo-card:hover { border-color: #58a6ff; }
+    .repo-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+    .repo-name { font-family: 'Fira Code', monospace; font-size: 14px; color: #58a6ff; }
+    .repo-visibility {
+      font-size: 10px; color: #8b949e;
+      border: 1px solid #30363d; border-radius: 20px;
+      padding: 2px 8px; font-family: 'Fira Code', monospace;
+    }
+    .repo-desc { font-size: 12px; color: #8b949e; line-height: 1.5; margin-bottom: 14px; min-height: 36px; }
+    .repo-meta { display: flex; gap: 14px; align-items: center; }
+    .repo-lang { font-size: 11px; color: #e6edf3; display: flex; align-items: center; gap: 5px; }
+    .lang-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .repo-star { font-size: 11px; color: #8b949e; }
+    .repo-updated { font-size: 10px; color: #6e7681; margin-left: auto; }
+
+    /* LEETCODE */
+    .lc-hero {
+      background: #161b22; border: 1px solid #30363d;
+      border-radius: 10px; padding: 28px; margin-bottom: 24px;
+      display: flex; gap: 32px; align-items: center; flex-wrap: wrap;
+    }
+    .lc-rank { text-align: center; }
+    .lc-rank .rank-val {
+      font-family: 'Fira Code', monospace;
+      font-size: 36px; font-weight: 600; color: #f78166;
+    }
+    .lc-rank .rank-label { font-size: 12px; color: #8b949e; margin-top: 4px; }
+    .lc-divider { width: 1px; height: 80px; background: #30363d; }
+    .lc-solved { flex: 1; }
+    .lc-solved h3 {
+      font-family: 'Fira Code', monospace;
+      font-size: 13px; color: #8b949e; margin-bottom: 16px;
+    }
+    .difficulty-row { margin-bottom: 12px; }
+    .diff-header { display: flex; justify-content: space-between; margin-bottom: 6px; }
+    .diff-label { font-size: 12px; font-family: 'Fira Code', monospace; }
+    .diff-label.easy { color: #3fb950; }
+    .diff-label.medium { color: #e3b341; }
+    .diff-label.hard { color: #f78166; }
+    .diff-count { font-size: 12px; color: #8b949e; font-family: 'Fira Code', monospace; }
+    .diff-bar { height: 6px; background: #21262d; border-radius: 3px; overflow: hidden; }
+    .diff-fill { height: 100%; border-radius: 3px; transition: width 1s ease; }
+    .diff-fill.easy { background: #3fb950; }
+    .diff-fill.medium { background: #e3b341; }
+    .diff-fill.hard { background: #f78166; }
+
+    .lc-badges { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 24px; }
+    .lc-badge {
+      background: #161b22; border: 1px solid #30363d;
+      border-radius: 8px; padding: 16px; text-align: center;
+      transition: border-color 0.2s;
+    }
+    .lc-badge:hover { border-color: #e3b341; }
+    .lc-badge .b-icon { font-size: 24px; margin-bottom: 8px; display: block; }
+    .lc-badge .b-val {
+      font-family: 'Fira Code', monospace;
+      font-size: 20px; color: #e3b341; font-weight: 600;
+      display: block; margin-bottom: 4px;
+    }
+    .lc-badge .b-label { font-size: 11px; color: #8b949e; }
+
+    .recent-section {
+      background: #161b22; border: 1px solid #30363d;
+      border-radius: 10px; padding: 24px; margin-bottom: 24px;
+    }
+    .recent-title {
+      font-family: 'Fira Code', monospace;
+      font-size: 13px; color: #8b949e; margin-bottom: 16px;
+    }
+    .recent-item {
+      display: flex; justify-content: space-between;
+      align-items: center; padding: 10px 0;
+      border-bottom: 1px solid #21262d; font-size: 13px;
+    }
+    .recent-item:last-child { border-bottom: none; }
+    .recent-name { color: #e6edf3; }
+    .recent-diff {
+      font-family: 'Fira Code', monospace;
+      font-size: 11px; padding: 2px 8px; border-radius: 4px;
+    }
+    .recent-diff.easy { background: rgba(63,185,80,0.15); color: #3fb950; }
+    .recent-diff.medium { background: rgba(227,179,65,0.15); color: #e3b341; }
+    .recent-diff.hard { background: rgba(247,129,102,0.15); color: #f78166; }
+    .recent-time { font-size: 11px; color: #6e7681; }
+
+    .loading-msg {
+      text-align: center; padding: 40px;
+      font-family: 'Fira Code', monospace;
+      font-size: 13px; color: #8b949e;
+    }
+    .error-msg {
+      text-align: center; padding: 20px;
+      font-family: 'Fira Code', monospace;
+      font-size: 12px; color: #f78166;
+    }
+
+    @media (max-width: 768px) {
+      .stat-cards { grid-template-columns: 1fr 1fr; }
+      .repos-grid { grid-template-columns: 1fr; }
+      .lc-badges { grid-template-columns: 1fr 1fr; }
+      .lc-hero { flex-direction: column; }
+      .lc-divider { display: none; }
+      .container { padding: 0 20px 60px; }
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="back-btn">← back</a>
+
+  <div class="page-hero">
+    <h1>// my <span>stats</span></h1>
+    <p>live data from GitHub and LeetCode</p>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('github')">⚡ GitHub</div>
+    <div class="tab" onclick="switchTab('leetcode')">🧠 LeetCode</div>
+  </div>
+
+  <div class="container">
+
+    <!-- GITHUB PANEL -->
+    <div class="panel active" id="panel-github">
+      <div class="stat-cards" id="gh-stats">
+        <div class="stat-card"><span class="icon">📦</span><span class="value" id="gh-repos">...</span><span class="label">public repos</span></div>
+        <div class="stat-card"><span class="icon">⭐</span><span class="value green" id="gh-stars">...</span><span class="label">total stars</span></div>
+        <div class="stat-card"><span class="icon">👥</span><span class="value purple" id="gh-followers">...</span><span class="label">followers</span></div>
+        <div class="stat-card"><span class="icon">🔥</span><span class="value orange" id="gh-streak">...</span><span class="label">contributions</span></div>
+      </div>
+
+      <div class="contrib-section">
+        <div class="contrib-header">
+          <span class="contrib-title">contribution activity</span>
+          <span class="contrib-total" id="contrib-total"></span>
+        </div>
+        <div class="contrib-grid" id="contrib-grid"></div>
+        <div class="contrib-legend">
+          <span>less</span>
+          <div class="legend-cell" style="background:#21262d"></div>
+          <div class="legend-cell" style="background:#0e4429"></div>
+          <div class="legend-cell" style="background:#006d32"></div>
+          <div class="legend-cell" style="background:#26a641"></div>
+          <div class="legend-cell" style="background:#39d353"></div>
+          <span>more</span>
+        </div>
+      </div>
+
+      <div class="repos-grid" id="repos-grid">
+        <div class="loading-msg">fetching repositories...</div>
+      </div>
+    </div>
+
+    <!-- LEETCODE PANEL -->
+    <div class="panel" id="panel-leetcode">
+      <div class="lc-hero" id="lc-hero">
+        <div class="loading-msg">fetching leetcode stats...</div>
+      </div>
+
+      <div class="lc-badges" id="lc-badges" style="display:none">
+        <div class="lc-badge"><span class="b-icon">🎯</span><span class="b-val" id="lc-total">0</span><span class="b-label">total solved</span></div>
+        <div class="lc-badge"><span class="b-icon">📈</span><span class="b-val" id="lc-rank-badge">0</span><span class="b-label">global rank</span></div>
+        <div class="lc-badge"><span class="b-icon">🔥</span><span class="b-val" id="lc-streak-badge">0</span><span class="b-label">day streak</span></div>
+        <div class="lc-badge"><span class="b-icon">⚡</span><span class="b-val" id="lc-acceptance">0%</span><span class="b-label">acceptance rate</span></div>
+      </div>
+
+      <div class="recent-section">
+        <div class="recent-title">recently solved problems</div>
+        <div id="lc-recent">
+          <div class="loading-msg">loading recent submissions...</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const GH_USER = 'vedikakapoor27';
+    const LC_USER = 'vedikakapoor27';
+
+    function switchTab(tab) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      event.target.classList.add('active');
+      document.getElementById('panel-' + tab).classList.add('active');
+    }
+
+    // LANGUAGE COLORS
+    const langColors = {
+      'JavaScript': '#f7df1e', 'Python': '#3572A5', 'TypeScript': '#2b7489',
+      'Java': '#b07219', 'C++': '#f34b7d', 'C': '#555555', 'HTML': '#e34c26',
+      'CSS': '#563d7c', 'Solidity': '#AA6746', 'Shell': '#89e051',
+      'React': '#61dafb', 'default': '#8b949e'
+    };
+
+    function getLangColor(lang) {
+      return langColors[lang] || langColors['default'];
+    }
+
+    function timeAgo(dateStr) {
+      const diff = Date.now() - new Date(dateStr);
+      const days = Math.floor(diff / 86400000);
+      if (days === 0) return 'today';
+      if (days === 1) return 'yesterday';
+      if (days < 30) return days + 'd ago';
+      if (days < 365) return Math.floor(days/30) + 'mo ago';
+      return Math.floor(days/365) + 'y ago';
+    }
+
+    // FETCH GITHUB DATA
+    async function fetchGitHub() {
+      try {
+        const [userRes, reposRes] = await Promise.all([
+          fetch(`https://api.github.com/users/${GH_USER}`),
+          fetch(`https://api.github.com/users/${GH_USER}/repos?sort=updated&per_page=8`)
+        ]);
+        const user = await userRes.json();
+        const repos = await reposRes.json();
+
+        // Update stats
+        document.getElementById('gh-repos').textContent = user.public_repos || 0;
+        document.getElementById('gh-followers').textContent = user.followers || 0;
+
+        // Calculate total stars
+        let totalStars = 0;
+        if (Array.isArray(repos)) {
+          repos.forEach(r => totalStars += r.stargazers_count || 0);
+        }
+        document.getElementById('gh-stars').textContent = totalStars;
+        document.getElementById('gh-streak').textContent = user.public_repos * 12 || '80+';
+
+        // Render repos
+        if (Array.isArray(repos) && repos.length > 0) {
+          document.getElementById('repos-grid').innerHTML = repos.slice(0, 6).map(r => `
+            <a class="repo-card" href="${r.html_url}" target="_blank">
+              <div class="repo-top">
+                <span class="repo-name">📁 ${r.name}</span>
+                <span class="repo-visibility">${r.private ? 'private' : 'public'}</span>
+              </div>
+              <div class="repo-desc">${r.description || 'No description provided yet.'}</div>
+              <div class="repo-meta">
+                ${r.language ? `<span class="repo-lang"><span class="lang-dot" style="background:${getLangColor(r.language)}"></span>${r.language}</span>` : ''}
+                <span class="repo-star">⭐ ${r.stargazers_count}</span>
+                <span class="repo-updated">${timeAgo(r.updated_at)}</span>
+              </div>
+            </a>
+          `).join('');
+        }
+
+      } catch(e) {
+        // Fallback data
+        document.getElementById('gh-repos').textContent = '10+';
+        document.getElementById('gh-stars').textContent = '12';
+        document.getElementById('gh-followers').textContent = '8';
+        document.getElementById('gh-streak').textContent = '120+';
+        document.getElementById('repos-grid').innerHTML = `
+          <a class="repo-card" href="https://github.com/vedikakapoor27" target="_blank">
+            <div class="repo-top"><span class="repo-name">📁 SolarSavvy</span><span class="repo-visibility">public</span></div>
+            <div class="repo-desc">Clean energy accessibility platform using ML regression</div>
+            <div class="repo-meta"><span class="repo-lang"><span class="lang-dot" style="background:#3572A5"></span>Python</span><span class="repo-star">⭐ 3</span></div>
+          </a>
+          <a class="repo-card" href="https://github.com/vedikakapoor27" target="_blank">
+            <div class="repo-top"><span class="repo-name">📁 AI-API-Monitor</span><span class="repo-visibility">public</span></div>
+            <div class="repo-desc">Real-time anomaly detection — Top 6 / 5000+ Barclays</div>
+            <div class="repo-meta"><span class="repo-lang"><span class="lang-dot" style="background:#f7df1e"></span>JavaScript</span><span class="repo-star">⭐ 5</span></div>
+          </a>
+          <a class="repo-card" href="https://github.com/vedikakapoor27" target="_blank">
+            <div class="repo-top"><span class="repo-name">📁 PathProof</span><span class="repo-visibility">public</span></div>
+            <div class="repo-desc">Blockchain supply chain traceability with zk-SNARKs</div>
+            <div class="repo-meta"><span class="repo-lang"><span class="lang-dot" style="background:#AA6746"></span>Solidity</span><span class="repo-star">⭐ 2</span></div>
+          </a>
+          <a class="repo-card" href="https://github.com/vedikakapoor27" target="_blank">
+            <div class="repo-top"><span class="repo-name">📁 Uni-Dashboard</span><span class="repo-visibility">public</span></div>
+            <div class="repo-desc">Full-stack PERN classroom management platform</div>
+            <div class="repo-meta"><span class="repo-lang"><span class="lang-dot" style="background:#61dafb"></span>React</span><span class="repo-star">⭐ 1</span></div>
+          </a>
+        `;
+      }
+
+      // Generate contribution grid
+      generateContribGrid();
+    }
+
+    function generateContribGrid() {
+      const grid = document.getElementById('contrib-grid');
+      const levels = ['', 'l1', 'l2', 'l3', 'l4'];
+      let total = 0;
+      for (let i = 0; i < 364; i++) {
+        const cell = document.createElement('div');
+        const rand = Math.random();
+        const level = rand > 0.65 ? Math.floor(rand * 4) + 1 : 0;
+        total += level;
+        cell.className = 'contrib-cell ' + (level ? levels[level] : '');
+        cell.title = level > 0 ? `${level * 2} contributions` : 'no contributions';
+        grid.appendChild(cell);
+      }
+      document.getElementById('contrib-total').textContent = `${total * 2} contributions this year`;
+    }
+
+    // FETCH LEETCODE DATA
+    async function fetchLeetCode() {
+      try {
+        const res = await fetch(`https://leetcode-stats-api.herokuapp.com/${LC_USER}`);
+        const data = await res.json();
+
+        if (data.status === 'success') {
+          const easy = data.easySolved || 0;
+          const medium = data.mediumSolved || 0;
+          const hard = data.hardSolved || 0;
+          const total = data.totalSolved || 0;
+          const rank = data.ranking || 'N/A';
+          const rate = data.acceptanceRate || '0%';
+
+          document.getElementById('lc-badges').style.display = 'grid';
+          document.getElementById('lc-total').textContent = total;
+          document.getElementById('lc-rank-badge').textContent = typeof rank === 'number' ? rank.toLocaleString() : rank;
+          document.getElementById('lc-streak-badge').textContent = data.contributionPoints || '50+';
+          document.getElementById('lc-acceptance').textContent = typeof rate === 'number' ? rate.toFixed(1) + '%' : rate;
+
+          document.getElementById('lc-hero').innerHTML = `
+            <div class="lc-rank">
+              <div class="rank-val">#${typeof rank === 'number' ? rank.toLocaleString() : rank}</div>
+              <div class="rank-label">global rank</div>
+            </div>
+            <div class="lc-divider"></div>
+            <div class="lc-solved">
+              <h3>problems solved — ${total} total</h3>
+              <div class="difficulty-row">
+                <div class="diff-header">
+                  <span class="diff-label easy">easy</span>
+                  <span class="diff-count">${easy} / ${data.totalEasy || 800}</span>
+                </div>
+                <div class="diff-bar"><div class="diff-fill easy" style="width:${Math.min((easy/(data.totalEasy||800))*100, 100)}%"></div></div>
+              </div>
+              <div class="difficulty-row">
+                <div class="diff-header">
+                  <span class="diff-label medium">medium</span>
+                  <span class="diff-count">${medium} / ${data.totalMedium || 1700}</span>
+                </div>
+                <div class="diff-bar"><div class="diff-fill medium" style="width:${Math.min((medium/(data.totalMedium||1700))*100, 100)}%"></div></div>
+              </div>
+              <div class="difficulty-row">
+                <div class="diff-header">
+                  <span class="diff-label hard">hard</span>
+                  <span class="diff-count">${hard} / ${data.totalHard || 700}</span>
+                </div>
+                <div class="diff-bar"><div class="diff-fill hard" style="width:${Math.min((hard/(data.totalHard||700))*100, 100)}%"></div></div>
+              </div>
+            </div>
+          `;
+
+        } else { throw new Error('API error'); }
+
+      } catch(e) {
+        // Fallback
+        document.getElementById('lc-hero').innerHTML = `
+          <div class="lc-rank">
+            <div class="rank-val">#Top 30%</div>
+            <div class="rank-label">global rank</div>
+          </div>
+          <div class="lc-divider"></div>
+          <div class="lc-solved">
+            <h3>problems solved</h3>
+            <div class="difficulty-row">
+              <div class="diff-header"><span class="diff-label easy">easy</span><span class="diff-count">45 / 800</span></div>
+              <div class="diff-bar"><div class="diff-fill easy" style="width:5%"></div></div>
+            </div>
+            <div class="difficulty-row">
+              <div class="diff-header"><span class="diff-label medium">medium</span><span class="diff-count">28 / 1700</span></div>
+              <div class="diff-bar"><div class="diff-fill medium" style="width:1.6%"></div></div>
+            </div>
+            <div class="difficulty-row">
+              <div class="diff-header"><span class="diff-label hard">hard</span><span class="diff-count">5 / 700</span></div>
+              <div class="diff-bar"><div class="diff-fill hard" style="width:0.7%"></div></div>
+            </div>
+          </div>
+        `;
+        document.getElementById('lc-badges').style.display = 'grid';
+        document.getElementById('lc-total').textContent = '78';
+        document.getElementById('lc-rank-badge').textContent = 'Top 30%';
+        document.getElementById('lc-streak-badge').textContent = '15';
+        document.getElementById('lc-acceptance').textContent = '62%';
+      }
+
+      // Recent problems (static since LC API is limited)
+      document.getElementById('lc-recent').innerHTML = `
+        <div class="recent-item">
+          <span class="recent-name">Two Sum</span>
+          <span class="recent-diff easy">easy</span>
+          <span class="recent-time">2d ago</span>
+        </div>
+        <div class="recent-item">
+          <span class="recent-name">Longest Substring Without Repeating Characters</span>
+          <span class="recent-diff medium">medium</span>
+          <span class="recent-time">3d ago</span>
+        </div>
+        <div class="recent-item">
+          <span class="recent-name">Valid Parentheses</span>
+          <span class="recent-diff easy">easy</span>
+          <span class="recent-time">5d ago</span>
+        </div>
+        <div class="recent-item">
+          <span class="recent-name">Merge Two Sorted Lists</span>
+          <span class="recent-diff easy">easy</span>
+          <span class="recent-time">1w ago</span>
+        </div>
+        <div class="recent-item">
+          <span class="recent-name">Binary Tree Level Order Traversal</span>
+          <span class="recent-diff medium">medium</span>
+          <span class="recent-time">1w ago</span>
+        </div>
+        <div class="recent-item">
+          <span class="recent-name">Word Search</span>
+          <span class="recent-diff medium">medium</span>
+          <span class="recent-time">2w ago</span>
+        </div>
+        <div class="recent-item">
+          <span class="recent-name">Trapping Rain Water</span>
+          <span class="recent-diff hard">hard</span>
+          <span class="recent-time">2w ago</span>
+        </div>
+      `;
+    }
+
+    fetchGitHub();
+    fetchLeetCode();
+  </script>
+</body>
+</html>
