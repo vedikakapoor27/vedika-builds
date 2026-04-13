@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Journey | Vedika Kapoor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #0d1117; color: #e6edf3; font-family: 'Inter', sans-serif; }
+    body { animation: fadeIn 0.4s ease; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+    .back-btn {
+      position: fixed; top: 20px; left: 24px;
+      font-family: 'Fira Code', monospace; font-size: 12px;
+      color: #8b949e; text-decoration: none;
+      background: #161b22; border: 1px solid #30363d;
+      padding: 8px 14px; border-radius: 6px;
+      transition: all 0.2s; z-index: 10;
+    }
+    .back-btn:hover { color: #58a6ff; border-color: #58a6ff; }
+
+    .hero {
+      padding: 80px 40px 40px;
+      max-width: 760px; margin: 0 auto; text-align: center;
+    }
+    .hero h1 {
+      font-family: 'Fira Code', monospace;
+      font-size: 32px; margin-bottom: 8px;
+    }
+    .hero h1 span { color: #58a6ff; }
+    .hero p { font-size: 14px; color: #8b949e; }
+
+    .timeline-wrapper {
+      max-width: 760px; margin: 0 auto;
+      padding: 20px 40px 80px;
+      position: relative;
+    }
+    .timeline-wrapper::before {
+      content: '';
+      position: absolute;
+      left: 50%; top: 0; bottom: 0;
+      width: 2px; background: #21262d;
+      transform: translateX(-50%);
+    }
+
+    .t-item {
+      display: flex; gap: 40px;
+      margin-bottom: 48px;
+      position: relative;
+      align-items: flex-start;
+    }
+    .t-item.left { flex-direction: row-reverse; }
+    .t-item.right { flex-direction: row; }
+
+    .t-content {
+      flex: 1;
+      background: #161b22; border: 1px solid #30363d;
+      border-radius: 10px; padding: 20px;
+      transition: border-color 0.3s, transform 0.3s;
+      opacity: 0; transform: translateY(20px);
+    }
+    .t-content.visible {
+      opacity: 1; transform: translateY(0);
+      transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.3s;
+    }
+    .t-content:hover { border-color: var(--accent, #58a6ff); }
+
+    .t-dot {
+      position: absolute; left: 50%;
+      transform: translateX(-50%);
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--accent, #58a6ff);
+      border: 3px solid #0d1117;
+      box-shadow: 0 0 0 3px var(--accent, #58a6ff33);
+      top: 20px; z-index: 1;
+    }
+
+    .t-spacer { flex: 1; }
+
+    .t-date {
+      font-family: 'Fira Code', monospace;
+      font-size: 11px; color: var(--accent, #58a6ff);
+      margin-bottom: 6px;
+    }
+    .t-title {
+      font-size: 16px; font-weight: 600;
+      color: #e6edf3; margin-bottom: 6px;
+    }
+    .t-org { font-size: 13px; color: #8b949e; margin-bottom: 10px; }
+    .t-desc { font-size: 13px; color: #8b949e; line-height: 1.7; }
+    .t-tag {
+      display: inline-block;
+      font-family: 'Fira Code', monospace;
+      font-size: 10px; padding: 3px 10px;
+      border-radius: 20px; margin-top: 10px;
+      background: rgba(88,166,255,0.1);
+      border: 1px solid rgba(88,166,255,0.3);
+      color: #58a6ff;
+    }
+    .t-tag.award {
+      background: rgba(63,185,80,0.1);
+      border-color: rgba(63,185,80,0.3);
+      color: #3fb950;
+    }
+    .t-tag.project {
+      background: rgba(188,140,255,0.1);
+      border-color: rgba(188,140,255,0.3);
+      color: #bc8cff;
+    }
+
+    @media (max-width: 640px) {
+      .timeline-wrapper::before { left: 20px; }
+      .t-item { flex-direction: column !important; padding-left: 48px; }
+      .t-dot { left: 20px; }
+      .t-spacer { display: none; }
+      .timeline-wrapper { padding: 20px 20px 60px; }
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="back-btn">← back</a>
+
+  <div class="hero">
+    <h1>my <span>journey</span></h1>
+    <p>every step that led here</p>
+  </div>
+
+  <div class="timeline-wrapper">
+
+    <div class="t-item right">
+      <div class="t-content" style="--accent:#58a6ff">
+        <div class="t-date">Jul 2023</div>
+        <div class="t-title">Started B.Tech at SRM IST</div>
+        <div class="t-org">SRM Institute of Science & Technology · Chennai</div>
+        <div class="t-desc">Began Computer Science with specialisation in Blockchain Technology. First exposure to serious programming, data structures, and engineering thinking.</div>
+        <span class="t-tag">education</span>
+      </div>
+      <div class="t-dot" style="--accent:#58a6ff"></div>
+      <div class="t-spacer"></div>
+    </div>
+
+    <div class="t-item left">
+      <div class="t-content" style="--accent:#f78166">
+        <div class="t-date">Jul 2024 – Aug 2024</div>
+        <div class="t-title">First Internship</div>
+        <div class="t-org">Pledge a Smile Foundation · Lucknow</div>
+        <div class="t-desc">First real-world experience at a nonprofit. Designed behaviour-focused social media campaigns that grew donor engagement by 18% in 6 weeks. Learned that technology is only as good as its communication.</div>
+        <span class="t-tag">internship</span>
+      </div>
+      <div class="t-dot" style="--accent:#f78166"></div>
+      <div class="t-spacer"></div>
+    </div>
+
+    <div class="t-item right">
+      <div class="t-content" style="--accent:#3fb950">
+        <div class="t-date">Aug 2025</div>
+        <div class="t-title">Started SolarSavvy</div>
+        <div class="t-org">Personal Project · India</div>
+        <div class="t-desc">Built a platform to improve solar energy accessibility for low-income Indian homeowners. Applied ML regression models — achieving ±12% error margin across 5 states. First project where I asked "what stops people?" instead of "what can I build?"</div>
+        <span class="t-tag project">project</span>
+      </div>
+      <div class="t-dot" style="--accent:#3fb950"></div>
+      <div class="t-spacer"></div>
+    </div>
+
+    <div class="t-item left">
+      <div class="t-content" style="--accent:#bc8cff">
+        <div class="t-date">Aug 2025</div>
+        <div class="t-title">Became Secretary — CSI</div>
+        <div class="t-org">Computer Society of India · Chennai</div>
+        <div class="t-desc">Took on my first leadership role. Planned and executed a 200+ participant hackathon end-to-end — managing logistics, tech, and design teams simultaneously. Chapter engagement grew 40%.</div>
+        <span class="t-tag">leadership</span>
+      </div>
+      <div class="t-dot" style="--accent:#bc8cff"></div>
+      <div class="t-spacer"></div>
+    </div>
+
+    <div class="t-item right">
+      <div class="t-content" style="--accent:#e3b341">
+        <div class="t-date">Sep 2025</div>
+        <div class="t-title">🥉 Tech Genius 2K25 — 3rd Place</div>
+        <div class="t-org">Dept. of Data Science & Business Systems · SRM IST</div>
+        <div class="t-desc">Built PathProof — a blockchain + zero-knowledge proof supply chain traceability platform. Won 3rd place. First time combining cryptography, smart contracts, and IPFS in a single system.</div>
+        <span class="t-tag award">🥉 award</span>
+      </div>
+      <div class="t-dot" style="--accent:#e3b341"></div>
+      <div class="t-spacer"></div>
+    </div>
+
+    <div class="t-item left">
+      <div class="t-content" style="--accent:#f78166">
+        <div class="t-date">Apr 2025</div>
+        <div class="t-title">🏆 Barclays Hack-O-Hire — Top 6</div>
+        <div class="t-org">National Competition · 5000+ Applicants</div>
+        <div class="t-desc">Selected among Top 6 from 5,000+ national applicants. Built an AI-powered API monitoring platform with real-time anomaly detection (Isolation Forest) and 15-minute forecasting (Prophet). Biggest achievement so far.</div>
+        <span class="t-tag award">🏆 top 6 / 5000+</span>
+      </div>
+      <div class="t-dot" style="--accent:#f78166"></div>
+      <div class="t-spacer"></div>
+    </div>
+
+    <div class="t-item right">
+      <div class="t-content" style="--accent:#58a6ff">
+        <div class="t-date">Jan 2026</div>
+        <div class="t-title">Started University Dashboard</div>
+        <div class="t-org">Personal Project · Full-Stack</div>
+        <div class="t-desc">Building a full-stack PERN classroom management platform with JWT auth, RBAC, and 12 REST API endpoints. Managing solo delivery using agile sprints on GitHub Projects.</div>
+        <span class="t-tag project">project</span>
+      </div>
+      <div class="t-dot" style="--accent:#58a6ff"></div>
+      <div class="t-spacer"></div>
+    </div>
+
+    <div class="t-item left">
+      <div class="t-content" style="--accent:#3fb950">
+        <div class="t-date">Apr 2026</div>
+        <div class="t-title">Portfolio Live 🚀</div>
+        <div class="t-org">vedikakapoor27.github.io/vedika-builds</div>
+        <div class="t-desc">Launched this portfolio with matrix animations, 3D backgrounds, interactive terminal, AI chat, and full case studies. If you're reading this — hello! 👋</div>
+        <span class="t-tag">now</span>
+      </div>
+      <div class="t-dot" style="--accent:#3fb950"></div>
+      <div class="t-spacer"></div>
+    </div>
+
+    <div class="t-item right">
+      <div class="t-content" style="--accent:#bc8cff; border-style: dashed;">
+        <div class="t-date">2026 →</div>
+        <div class="t-title">what's next?</div>
+        <div class="t-org">open to opportunities</div>
+        <div class="t-desc">Actively seeking internships at the intersection of technology and social impact. If you're building something that matters — let's talk.</div>
+        <a href="mailto:vedikakapoor.work@gmail.com" style="
+          display:inline-block;margin-top:12px;
+          font-family:'Fira Code',monospace;font-size:12px;
+          color:#bc8cff;text-decoration:none;
+          border-bottom:1px solid #bc8cff;
+        ">get in touch →</a>
+      </div>
+      <div class="t-dot" style="--accent:#bc8cff; background: transparent; border: 2px dashed #bc8cff;"></div>
+      <div class="t-spacer"></div>
+    </div>
+
+  </div>
+
+  <script>
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.t-content').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
