@@ -489,3 +489,37 @@ footer span { color: var(--blue); }
   body { cursor: auto; }
   .cursor, .cursor-follower { display: none; }
 }
+/* CERTIFICATIONS */
+.certs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.cert-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 20px;
+  display: flex; gap: 16px; align-items: flex-start;
+  transition: all 0.3s; position: relative;
+}
+.cert-card:hover { border-color: var(--blue); transform: translateY(-3px); }
+.cert-icon { font-size: 28px; flex-shrink: 0; margin-top: 2px; }
+.cert-body { flex: 1; }
+.cert-body h3 { font-size: 14px; color: var(--text); margin-bottom: 4px; }
+.cert-org {
+  font-family: 'Fira Code', monospace;
+  font-size: 11px; color: var(--blue); margin-bottom: 6px;
+}
+.cert-desc { font-size: 12px; color: var(--text2); line-height: 1.5; }
+.cert-badge {
+  position: absolute; top: 16px; right: 16px;
+  font-family: 'Fira Code', monospace; font-size: 10px;
+  padding: 3px 10px; border-radius: 20px;
+  background: rgba(63,185,80,0.1);
+  border: 1px solid rgba(63,185,80,0.3);
+  color: #3fb950;
+}
+.cert-badge.planned {
+  background: rgba(88,166,255,0.1);
+  border-color: rgba(88,166,255,0.3);
+  color: var(--blue);
+}
+
+@media (max-width: 768px) {
+  .certs-grid { grid-template-columns: 1fr; }
+}
