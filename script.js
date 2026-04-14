@@ -245,4 +245,102 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   })();
 
+  // RECRUITER MODE
+document.getElementById('recruiter-btn').addEventListener('click', () => {
+  const overlay = document.createElement('div');
+  overlay.id = 'recruiter-overlay';
+  overlay.style.cssText = `
+    position: fixed; inset: 0;
+    background: rgba(13,17,23,0.97);
+    z-index: 999999;
+    display: flex; align-items: center; justify-content: center;
+    font-family: Fira Code, monospace;
+    padding: 20px;
+    animation: fadeIn 0.3s ease;
+  `;
+
+  overlay.innerHTML = `
+    <div style="max-width:680px;width:100%;">
+
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;">
+        <div style="font-size:11px;color:#3fb950;letter-spacing:2px;">// RECRUITER MODE</div>
+        <button onclick="document.getElementById('recruiter-overlay').remove()" style="
+          background:transparent;border:1px solid #30363d;
+          color:#8b949e;padding:6px 14px;border-radius:6px;
+          font-family:Fira Code,monospace;font-size:11px;cursor:pointer;
+        ">✕ close</button>
+      </div>
+
+      <div style="display:flex;gap:16px;align-items:center;margin-bottom:28px;">
+        <img src="assets/images/profile.jpeg" style="
+          width:72px;height:72px;border-radius:50%;
+          border:2px solid #58a6ff;object-fit:cover;
+        "/>
+        <div>
+          <div style="font-size:24px;color:#e6edf3;font-weight:600;margin-bottom:4px;">Vedika Kapoor</div>
+          <div style="font-size:13px;color:#58a6ff;">Full-Stack Developer · AI/ML · Blockchain</div>
+          <div style="font-size:12px;color:#8b949e;margin-top:2px;">B.Tech CSE @ SRM IST · Chennai · Open to remote</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px;">
+        <div style="background:#161b22;border:1px solid #30363d;border-radius:8px;padding:16px;">
+          <div style="font-size:10px;color:#6e7681;margin-bottom:8px;letter-spacing:1px;">WHY HIRE ME</div>
+          <ul style="list-style:none;font-size:12px;color:#8b949e;line-height:2;">
+            <li>🏆 Top 6 / 5000+ — Barclays Hack-O-Hire</li>
+            <li>🥉 3rd Place — Tech Genius 2K25</li>
+            <li>⭐ GPA 8.67 / 10</li>
+            <li>🌱 Built real ML model across 5 Indian states</li>
+            <li>🤝 Led 200+ participant hackathon</li>
+          </ul>
+        </div>
+        <div style="background:#161b22;border:1px solid #30363d;border-radius:8px;padding:16px;">
+          <div style="font-size:10px;color:#6e7681;margin-bottom:8px;letter-spacing:1px;">CORE STACK</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;">
+            ${['Python','React','FastAPI','MongoDB','PostgreSQL','ML','Blockchain','Node.js','Git'].map(s =>
+              `<span style="background:#21262d;border:1px solid #30363d;color:#8b949e;font-size:10px;padding:3px 8px;border-radius:4px;">${s}</span>`
+            ).join('')}
+          </div>
+        </div>
+      </div>
+
+      <div style="background:#161b22;border:1px solid #30363d;border-radius:8px;padding:16px;margin-bottom:20px;">
+        <div style="font-size:10px;color:#6e7681;margin-bottom:10px;letter-spacing:1px;">BEST PROJECTS</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px;">
+          <div style="color:#8b949e;">🌱 <span style="color:#e6edf3;">SolarSavvy</span> — ML + sustainability</div>
+          <div style="color:#8b949e;">⚡ <span style="color:#e6edf3;">AI API Monitor</span> — Top 6 finalist</div>
+          <div style="color:#8b949e;">🔗 <span style="color:#e6edf3;">PathProof</span> — Blockchain + zk-SNARKs</div>
+          <div style="color:#8b949e;">🎓 <span style="color:#e6edf3;">Uni Dashboard</span> — PERN full-stack</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <a href="mailto:vedikakapoor.work@gmail.com" style="
+          flex:1;min-width:140px;
+          background:#58a6ff;color:#0d1117;
+          border:none;padding:12px 20px;border-radius:6px;
+          font-family:Fira Code,monospace;font-size:12px;
+          cursor:pointer;text-decoration:none;text-align:center;font-weight:600;
+        ">📧 email me</a>
+        <a href="assets/resume.pdf" download style="
+          flex:1;min-width:140px;
+          background:transparent;color:#58a6ff;
+          border:1px solid #58a6ff;padding:12px 20px;border-radius:6px;
+          font-family:Fira Code,monospace;font-size:12px;
+          cursor:pointer;text-decoration:none;text-align:center;
+        ">📄 download resume</a>
+        <a href="https://linkedin.com/in/vedika-kapoor-4a635a289" target="_blank" style="
+          flex:1;min-width:140px;
+          background:transparent;color:#bc8cff;
+          border:1px solid #bc8cff;padding:12px 20px;border-radius:6px;
+          font-family:Fira Code,monospace;font-size:12px;
+          cursor:pointer;text-decoration:none;text-align:center;
+        ">💼 linkedin</a>
+      </div>
+
+    </div>
+  `;
+  document.body.appendChild(overlay);
+});
+
 }); // end DOMContentLoaded
