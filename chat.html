@@ -136,7 +136,7 @@
   <a href="index.html" class="back-btn">← back</a>
 
   <div class="chat-header">
-    <img src="assets/images/profile.jpeg" class="chat-avatar" alt="Vedika"/>
+    <img src="assests/images/profile..jpeg" class="chat-avatar" alt="Vedika"/>
     <div class="chat-header-info">
       <h2>Vedika's AI Portfolio Assistant</h2>
       <p><span class="online-dot"></span>online · ask me anything about Vedika</p>
@@ -260,17 +260,12 @@ PERSONALITY: Analytical, socially driven, asks "what stops people?" not just "wh
 
       addTyping();
 
-      try {
-        const res = await fetch('https://api.anthropic.com/v1/messages', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            model: 'claude-sonnet-4-20250514',
-            max_tokens: 1000,
-            system: SYSTEM_PROMPT,
-            messages: messages
-          })
-        });
+      
+        const res = await fetch('/api/chat', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ messages: messages })
+});
 
         const data = await res.json();
         removeTyping();
