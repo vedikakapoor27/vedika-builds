@@ -272,7 +272,7 @@ document.getElementById('recruiter-btn').addEventListener('click', () => {
       </div>
 
       <div style="display:flex;gap:16px;align-items:center;margin-bottom:28px;">
-        <img src="assets/images/profile.jpeg" style="
+        <img src="assests/images/profile..jpeg" style="
           width:72px;height:72px;border-radius:50%;
           border:2px solid #58a6ff;object-fit:cover;
         "/>
