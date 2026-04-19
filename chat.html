@@ -21,7 +21,6 @@
       transition: all 0.2s; z-index: 10;
     }
     .back-btn:hover { color: #58a6ff; border-color: #58a6ff; }
-
     .chat-header {
       background: #161b22; border-bottom: 1px solid #30363d;
       padding: 14px 20px 14px 100px;
@@ -39,7 +38,6 @@
       margin-right: 4px; animation: pulse 2s infinite;
     }
     @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-
     .messages {
       flex: 1; overflow-y: auto;
       padding: 24px 20px; display: flex;
@@ -48,11 +46,9 @@
     }
     .messages::-webkit-scrollbar { width: 4px; }
     .messages::-webkit-scrollbar-thumb { background: #30363d; border-radius: 2px; }
-
     .msg { display: flex; gap: 10px; max-width: 80%; }
     .msg.user { align-self: flex-end; flex-direction: row-reverse; }
     .msg.bot { align-self: flex-start; }
-
     .msg-avatar {
       width: 32px; height: 32px; border-radius: 50%;
       flex-shrink: 0; object-fit: cover;
@@ -63,7 +59,6 @@
       display: flex; align-items: center; justify-content: center;
       font-size: 14px;
     }
-
     .msg-bubble {
       padding: 12px 16px; border-radius: 12px;
       font-size: 14px; line-height: 1.6;
@@ -76,7 +71,6 @@
       background: #58a6ff22; border: 1px solid #58a6ff44;
       color: #e6edf3; border-radius: 12px 4px 12px 12px;
     }
-
     .typing-indicator {
       display: flex; gap: 4px; align-items: center; padding: 4px 0;
     }
@@ -87,7 +81,6 @@
     .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
     .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
     @keyframes bounce { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-6px)} }
-
     .suggestions {
       display: flex; gap: 8px; flex-wrap: wrap;
       padding: 0 20px 12px;
@@ -101,7 +94,6 @@
       transition: all 0.2s; white-space: nowrap;
     }
     .suggestion-btn:hover { border-color: #58a6ff; color: #58a6ff; }
-
     .input-area {
       background: #161b22; border-top: 1px solid #30363d;
       padding: 16px 20px;
@@ -136,7 +128,7 @@
   <a href="index.html" class="back-btn">← back</a>
 
   <div class="chat-header">
-    <img src="assests/images/profile..jpeg" class="chat-avatar" alt="Vedika"/>
+    <img src="assests/images/profile.jpeg" class="chat-avatar" alt="Vedika"/>
     <div class="chat-header-info">
       <h2>Vedika's AI Portfolio Assistant</h2>
       <p><span class="online-dot"></span>online · ask me anything about Vedika</p>
@@ -170,10 +162,8 @@
   <script>
     const SYSTEM_PROMPT = `You are an AI assistant for Vedika Kapoor's portfolio website. You answer questions about Vedika in a friendly, concise, and professional way. Always speak about Vedika in third person. Keep answers under 150 words unless asked for detail.
 
-Here is everything you know about Vedika:
-
 NAME: Vedika Kapoor
-EDUCATION: B.Tech Computer Science (Blockchain Technology) at SRM Institute of Science and Technology, Chennai. GPA: 8.67/10. Jul 2023 – May 2027.
+EDUCATION: B.Tech Computer Science (Blockchain Technology) at SRM IST Chennai. GPA: 8.67/10. Jul 2023 – May 2027.
 LOCATION: Chennai, Tamil Nadu, India. Open to remote opportunities worldwide.
 EMAIL: vedikakapoor.work@gmail.com
 PHONE: +91 9335315832
@@ -183,24 +173,21 @@ GITHUB: github.com/vedikakapoor27
 SKILLS: Python, JavaScript, Java, C, C++, SQL, React.js, Node.js, Express, FastAPI, TensorFlow, Streamlit, Tailwind CSS, MongoDB, PostgreSQL, Elasticsearch, Kibana, Git, GitHub, Machine Learning, ChatGPT (structured use), Canva AI, Blockchain, zk-SNARKs, IPFS, Solidity.
 
 PROJECTS:
-1. SolarSavvy - Platform improving solar energy accessibility for low-income Indian homeowners. ML regression models estimate rooftop viability with ±12% error margin across 5 Indian states. Stack: Python, ML, Streamlit. Focus: sustainability + social impact.
-2. AI API Monitor - Intelligent API observability platform detecting anomalies using Isolation Forest and forecasting degradation 15 min ahead with Prophet. Top 6 / 5000+ at Barclays Hack-O-Hire. Stack: FastAPI, MongoDB, Elasticsearch, React, Kibana.
-3. University Dashboard - Full-stack classroom management platform with JWT auth, RBAC, 12 REST API endpoints. PERN stack. Deploying April 2026.
-4. PathProof - Blockchain + zero-knowledge supply chain traceability. zk-SNARK Proof of Location, IPFS, smart contracts. Won 3rd place at Tech Genius 2K25.
+1. SolarSavvy - ML platform for solar energy accessibility. ±12% error margin across 5 Indian states. Stack: Python, ML, Streamlit.
+2. AI API Monitor - Real-time anomaly detection + forecasting. Top 6 / 5000+ Barclays Hack-O-Hire. Stack: FastAPI, MongoDB, Elasticsearch, React.
+3. University Dashboard - Full-stack PERN platform. JWT auth, RBAC, 12 REST endpoints.
+4. PathProof - Blockchain + zk-SNARK supply chain. 3rd place Tech Genius 2K25.
 
 EXPERIENCE:
-1. Secretary, Computer Society of India (Aug 2025 - Present): Led 200+ participant hackathon, increased engagement 40%, used AI tools for insights.
-2. Social Media & Communications Intern, Pledge a Smile Foundation (Jul-Aug 2024): Grew follower base 18% in 6 weeks, 30+ targeted posts.
+1. Secretary, CSI (Aug 2025 - Present): Led 200+ participant hackathon, 40% engagement increase.
+2. Social Media Intern, Pledge a Smile Foundation (Jul-Aug 2024): 18% follower growth in 6 weeks.
 
 ACHIEVEMENTS:
-- Top 6 Finalist, Barclays Hack-O-Hire (Apr 2025) - from 5000+ applicants
-- 3rd Runner Up, Tech Genius 2K25 (Sep 2025)
+- Top 6 / 5000+ Barclays Hack-O-Hire (Apr 2025)
+- 3rd Place Tech Genius 2K25 (Sep 2025)
 - GPA 8.67/10
-- SolarSavvy 5-state ML pilot
 
-AVAILABILITY: Actively seeking internships, especially in tech + social impact, sustainability, AI/ML, full-stack development. Open to remote international roles.
-
-PERSONALITY: Analytical, socially driven, asks "what stops people?" not just "what can I build?". Thrives under pressure. Passionate about sustainability and social good.`;
+AVAILABILITY: Actively seeking internships in tech + social impact, AI/ML, full-stack. Open to remote international roles.`;
 
     const messages = [];
 
@@ -210,7 +197,7 @@ PERSONALITY: Analytical, socially driven, asks "what stops people?" not just "wh
       div.innerHTML = `
         <div class="msg-avatar ${role === 'user' ? '' : 'bot-av'}">
           ${role === 'user'
-            ? '<img src="assets/images/profile.jpeg" style="width:32px;height:32px;border-radius:50%;object-fit:cover;border:1px solid #30363d;" />'
+            ? '<img src="assests/images/profile.jpeg" style="width:32px;height:32px;border-radius:50%;object-fit:cover;border:1px solid #30363d;" />'
             : '🤖'}
         </div>
         <div class="msg-bubble">${content.replace(/\n/g, '<br/>')}</div>
@@ -221,7 +208,8 @@ PERSONALITY: Analytical, socially driven, asks "what stops people?" not just "wh
 
     function addTyping() {
       const div = document.createElement('div');
-      div.className = 'msg bot'; div.id = 'typing-msg';
+      div.className = 'msg bot';
+      div.id = 'typing-msg';
       div.innerHTML = `
         <div class="msg-avatar bot-av">🤖</div>
         <div class="msg-bubble">
@@ -258,37 +246,23 @@ PERSONALITY: Analytical, socially driven, asks "what stops people?" not just "wh
       addMessage('user', text);
       messages.push({ role: 'user', content: text });
 
-      addTyping();}
+      addTyping();
 
-      
+      try {
         const res = await fetch('/api/chat', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ messages: messages })
-});
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ messages: messages })
+        });
 
         const data = await res.json();
         removeTyping();
 
-        const reply = data.content?.[0]?.text || "Sorry, I couldn't fetch a response. Please try again!";
+        const reply = data.content?.[0]?.text ||
+          "Sorry, I couldn't fetch a response. Please try again!";
+
         addMessage('bot', reply);
         messages.push({ role: 'assistant', content: reply });
-
-      try {
-  const res = await fetch('/api/chat', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ messages: messages })
-  });
-
-  const data = await res.json();
-  removeTyping();
-
-  const reply = data.content?.[0]?.text || 
-    "Sorry, I couldn't fetch a response. Please try again!";
-  
-  addMessage('bot', reply);
-  messages.push({ role: 'assistant', content: reply });
 
       } catch(e) {
         removeTyping();
@@ -297,6 +271,7 @@ PERSONALITY: Analytical, socially driven, asks "what stops people?" not just "wh
 
       btn.disabled = false;
       input.focus();
+    }
 
     document.getElementById('chat-input').addEventListener('keydown', e => {
       if (e.key === 'Enter' && !e.shiftKey) {
