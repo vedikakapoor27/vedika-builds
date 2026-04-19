@@ -128,7 +128,7 @@
   <a href="index.html" class="back-btn">← back</a>
 
   <div class="chat-header">
-    <img src="assests/images/profile.jpeg" class="chat-avatar" alt="Vedika"/>
+    <img src="assests/images/profile..jpeg" class="chat-avatar" alt="Vedika"/>
     <div class="chat-header-info">
       <h2>Vedika's AI Portfolio Assistant</h2>
       <p><span class="online-dot"></span>online · ask me anything about Vedika</p>
@@ -197,7 +197,7 @@ AVAILABILITY: Actively seeking internships in tech + social impact, AI/ML, full-
       div.innerHTML = `
         <div class="msg-avatar ${role === 'user' ? '' : 'bot-av'}">
           ${role === 'user'
-            ? '<img src="assests/images/profile.jpeg" style="width:32px;height:32px;border-radius:50%;object-fit:cover;border:1px solid #30363d;" />'
+            ? '<img src="assests/images/profile..jpeg" style="width:32px;height:32px;border-radius:50%;object-fit:cover;border:1px solid #30363d;" />'
             : '🤖'}
         </div>
         <div class="msg-bubble">${content.replace(/\n/g, '<br/>')}</div>
@@ -249,7 +249,7 @@ AVAILABILITY: Actively seeking internships in tech + social impact, AI/ML, full-
       addTyping();
 
       try {
-        const res = await fetch('/api/chat', {
+        const res = await fetch('/.netlify/functions/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ messages: messages })
