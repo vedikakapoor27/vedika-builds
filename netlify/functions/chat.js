@@ -17,34 +17,28 @@ PROJECTS: SolarSavvy (ML + sustainability), AI API Monitor (Top 6/5000+ Barclays
 ACHIEVEMENTS: Top 6 Barclays Hack-O-Hire, 3rd Place Tech Genius 2K25, GPA 8.67.
 AVAILABILITY: Seeking internships in AI/ML, full-stack, social impact. Open to remote.`;
 
-    // Convert messages for Gemini format
-    const geminiMessages = messages.map(m => ({
-      role: m.role === 'assistant' ? 'model' : 'user',
-      parts: [{ text: m.content }]
-    }));
-
-    const allMessages = [
-      { role: 'user', parts: [{ text: SYSTEM_PROMPT }] },
-      { role: 'model', parts: [{ text: 'Understood! Ready to answer questions about Vedika.' }] },
-      ...geminiMessages
-    ];
-
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: allMessages,
-          generationConfig: { maxOutputTokens: 300, temperature: 0.7 }
-        })
-      }
-    );
+    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.GROQ_API_KEY}`
+      },
+      body: JSON.stringify({
+        model: 'llama3-8b-8192',
+        messages: [
+          { role: 'system', content: SYSTEM_PROMPT },
+          ...messages
+        ],
+        max_tokens: 300,
+        temperature: 0.7
+      })
+    });
 
     const data = await response.json();
+    console.log('Groq response:', JSON.stringify(data));
 
     if (data.error) {
-      console.error('Gemini error:', JSON.stringify(data.error));
+      console.error('Groq error:', data.error);
       return {
         statusCode: 200,
         headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
@@ -52,7 +46,7 @@ AVAILABILITY: Seeking internships in AI/ML, full-stack, social impact. Open to r
       };
     }
 
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No response received.';
+    const text = data.choices?.[0]?.message?.content || 'No response received.';
 
     return {
       statusCode: 200,
